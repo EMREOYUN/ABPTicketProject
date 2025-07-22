@@ -1,0 +1,198 @@
+<div class="event-list-container">
+  <h2 class="event-list-title">{{ '::Menu:Events2' | abpLocalization }} {{getUsername()}}</h2>
+  <div class="text-lg-end pt-2">
+    <button *abpPermission="'ABPTicketProject.Seller.CreateEvent'" id="create" class="btn btn-primary" type="button" (click)="createEvent()">
+      <i class="fa fa-plus me-1"></i>
+      <span>{{ "::Menu:NewEvent" | abpLocalization }}</span>
+    </button>
+  </div>
+  <div *ngIf="events?.items?.length === 0" class="no-events">No events found.</div>
+  <div class="event-list">
+    <div *ngFor="let event of events?.items" class="event-card">
+      <img *ngIf="event.imageURL" [src]="event.imageURL" alt="{{ event.name }}" class="event-image" />
+      <div class="event-details">
+        <h3 class="event-name">{{ event.name }}</h3>
+        <div class="event-meta">
+          <span class="event-date" *ngIf="event.date">📅 {{ event.date | date:'mediumDate' }}</span>
+          <span class="event-location" *ngIf="event.location">📍 {{ event.location }}</span>
+        </div>
+        <div class="event-description">{{ event.description }}</div>
+        <div class="event-info">
+          <span class="event-price">💵 {{ event.price }}</span>
+          <span class="event-quota">🎟️ Quota: {{ event.quota }}</span>
+        </div>
+        <div class="event-age-restriction" *ngIf="event.ageRestriction">
+          <span class="age-restriction">🔞 Age Restricted</span>
+        </div>
+        <div class="event-actions mt-2">
+          <button *abpPermission="'ABPTicketProject.Seller.EditEvent'" class="btn btn-sm btn-outline-primary me-2" (click)="editEvent(event.id)">
+            <i class="fa fa-edit"></i> {{ '::Menu:Edit' | abpLocalization }}
+          </button>
+          <button *abpPermission="'ABPTicketProject.Seller.DeleteEvent'" class="btn btn-sm btn-outline-danger" (click)="deleteEvent(event.id)">
+            <i class="fa fa-trash"></i> {{ '::Menu:Delete' | abpLocalization }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>{{ '::Menu:NewEvent' | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" formControlName="name" placeholder="Event name" />
+        <div *ngIf="form.get('name').invalid && form.get('name').touched" class="text-danger small">Name is required.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="2" placeholder="Description"></textarea>
+        <div *ngIf="form.get('description').invalid && form.get('description').touched" class="text-danger small">Description is required.</div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
+          <label class="form-label">Price</label>
+          <input type="number" class="form-control" formControlName="price" min="0.01" step="0.01" />
+          <div *ngIf="form.get('price').invalid && form.get('price').touched" class="text-danger small">Price must be at least 0.01.</div>
+        </div>
+        <div class="col mb-3">
+          <label class="form-label">Quota</label>
+          <input type="number" class="form-control" formControlName="quota" min="1" />
+          <div *ngIf="form.get('quota').invalid && form.get('quota').touched" class="text-danger small">Quota must be at least 1.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mb-3">
+          <label class="form-label">User Quota</label>
+          <input type="number" class="form-control" formControlName="userQuota" min="1" />
+          <div *ngIf="form.get('userQuota').invalid && form.get('userQuota').touched" class="text-danger small">User quota must be at least 1.</div>
+        </div>
+        <div class="col mb-3">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" formControlName="date" />
+          <div *ngIf="form.get('date').invalid && form.get('date').touched" class="text-danger small">Date is required.</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input class="form-control" formControlName="location" placeholder="Location" />
+        <div *ngIf="form.get('location').invalid && form.get('location').touched" class="text-danger small">Location is required.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input class="form-control" formControlName="imageURL" placeholder="https://..." />
+        <div *ngIf="form.get('imageURL').invalid && form.get('imageURL').touched" class="text-danger small">Must be a valid URL.</div>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" formControlName="ageRestriction" id="ageRestrictionCheck" />
+        <label class="form-check-label" for="ageRestrictionCheck">Age Restriction</label>
+      </div>
+      <!-- Add submit button if needed -->
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Create Event</button> -->
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '::Close' | abpLocalization }}
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
+        <i class="fa fa-check mr-1"></i>
+        {{ '::Save' | abpLocalization }}
+  </button>
+  </ng-template>
+</abp-modal>
+
+<style>
+.event-list-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.event-list-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.no-events {
+  text-align: center;
+  color: #888;
+  font-size: 1.2rem;
+}
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.event-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.event-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+}
+.event-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #f5f5f5;
+}
+.event-details {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.event-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+}
+.event-meta {
+  font-size: 0.95rem;
+  color: #666;
+  display: flex;
+  gap: 1.2rem;
+}
+.event-description {
+  margin: 0.5rem 0;
+  color: #444;
+  min-height: 48px;
+}
+.event-info {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.98rem;
+  color: #333;
+  flex-wrap: wrap;
+}
+.event-age-restriction {
+  color: #d32f2f;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+.event-status {
+  margin-top: 0.5rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+.event-status.active span {
+  color: #388e3c;
+}
+.event-status.inactive span {
+  color: #d32f2f;
+}
+</style>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ABPTicketProject</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ABPTicketProject.MongoDB\ABPTicketProject.MongoDB.csproj" />
+    <ProjectReference Include="..\ABPTicketProject.Application.Tests\ABPTicketProject.Application.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="MongoSandbox.Core" Version="2.0.0" />
+    <PackageReference Include="MongoSandbox8.runtime.linux-x64" Version="2.0.0" />
+    <PackageReference Include="MongoSandbox8.runtime.osx-arm64" Version="2.0.0" />
+    <PackageReference Include="MongoSandbox8.runtime.win-x64" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+﻿{
+  "applications": {
+    "ABPTicketProject.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44334",
+      "path": "../../../src/ABPTicketProject.HttpApi.Host/ABPTicketProject.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    },
+    "ABPTicketProject.Angular": {
+      "type": "cli",
+      "workingDirectory": "../../../angular",
+      "startCommand": "./start.ps1",
+      "launchUrl": "http://localhost:4200",
+      "kubernetesService": ".*-angular$",
+      "execution": {
+        "order": 2
+      }    
+    }
+  },
+  "containers": {
+    "serviceName": "ABPTicketProject-Containers",
+  }
+}

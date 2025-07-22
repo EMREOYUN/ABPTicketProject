@@ -1,0 +1,59 @@
+{
+  "id": "756fb403-b640-4ded-b965-a3f057fae33c",
+  "template": "app",
+  "versions": {
+    "AbpFramework": "9.2.1",
+    "AbpStudio": "1.0.2",
+    "TargetDotnetFramework": "net9.0"
+  },
+  "modules": {
+    "ABPTicketProject": {
+      "path": "ABPTicketProject.abpmdl",
+      "folder": "main"
+    }
+  },
+  "runProfiles": {
+    "Default": {
+      "path": "etc/abp-studio/run-profiles/Default.abprun.json"
+    }
+  },
+  "options": {
+    "httpRequests": {
+      "ignoredUrls": []
+    }
+  },
+  "creatingStudioConfiguration": {
+    "template": "app",
+    "createdAbpStudioVersion": "1.0.2",
+    "tiered": "false",
+    "runInstallLibs": "true",
+    "useLocalReferences": "false",
+    "multiTenancy": "true",
+    "includeTests": "true",
+    "kubernetesConfiguration": "false",
+    "uiFramework": "angular",
+    "mobileFramework": "none",
+    "distributedEventBus": "none",
+    "databaseProvider": "mongodb",
+    "runDbMigrator": "true",
+    "theme": "leptonx-lite",
+    "themeStyle": "",
+    "themeMenuPlacement": "",
+    "progressiveWebApp": "false",
+    "runProgressiveWebAppSupport": "false",
+    "publicWebsite": "false",
+    "socialLogin": "false",
+    "selectedLanguages": [
+      "English",
+      "Türkçe"
+    ],
+    "defaultLanguage": "English",
+    "createCommand": "abp new ABPTicketProject -t app --ui-framework angular --database-provider mongodb --theme leptonx-lite --skip-migration  --without-cms-kit --dont-run-bundling --no-social-logins -no-gdpr -no-openiddict-admin-ui -no-audit-logging -no-file-management -no-language-management -no-text-template-management"
+  },
+  "folders": {
+    "items": {
+      "main": {},
+      "modules": {}
+    }
+  }
+}

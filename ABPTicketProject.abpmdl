@@ -1,0 +1,101 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.2.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.2.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "ABPTicketProject.Application": {
+      "path": "src/ABPTicketProject.Application/ABPTicketProject.Application.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.Application.Tests": {
+      "path": "test/ABPTicketProject.Application.Tests/ABPTicketProject.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "ABPTicketProject.MongoDB": {
+      "path": "src/ABPTicketProject.MongoDB/ABPTicketProject.MongoDB.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.MongoDB.Tests": {
+      "path": "test/ABPTicketProject.MongoDB.Tests/ABPTicketProject.MongoDB.Tests.abppkg",
+      "folder": "test"
+    },
+    "ABPTicketProject.Domain.Shared": {
+      "path": "src/ABPTicketProject.Domain.Shared/ABPTicketProject.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.Application.Contracts": {
+      "path": "src/ABPTicketProject.Application.Contracts/ABPTicketProject.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.HttpApi": {
+      "path": "src/ABPTicketProject.HttpApi/ABPTicketProject.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.HttpApi.Client": {
+      "path": "src/ABPTicketProject.HttpApi.Client/ABPTicketProject.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.TestBase": {
+      "path": "test/ABPTicketProject.TestBase/ABPTicketProject.TestBase.abppkg",
+      "folder": "test"
+    },
+    "ABPTicketProject.Domain.Tests": {
+      "path": "test/ABPTicketProject.Domain.Tests/ABPTicketProject.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "ABPTicketProject.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/ABPTicketProject.HttpApi.Client.ConsoleTestApp/ABPTicketProject.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "ABPTicketProject.DbMigrator": {
+      "path": "src/ABPTicketProject.DbMigrator/ABPTicketProject.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.HttpApi.Host": {
+      "path": "src/ABPTicketProject.HttpApi.Host/ABPTicketProject.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "ABPTicketProject.Domain": {
+      "path": "src/ABPTicketProject.Domain/ABPTicketProject.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
