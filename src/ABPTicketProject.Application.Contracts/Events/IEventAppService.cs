@@ -21,4 +21,5 @@ public interface IEventAppService : ICrudAppService<
     Task RemoveFavoriteAsync(Guid eventId);
     Task<bool> IsFavoriteAsync(Guid eventId);
     Task<List<EventDto>> GetMyFavoriteEventsAsync();
+    Task<List<SellerEventPurchaseInfoDto>> GetSellerEventPurchaseInfoAsync();
 }

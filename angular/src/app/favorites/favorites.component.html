@@ -1,1 +1,33 @@
-<p>favorites works!</p>
+<div class="event-list-container">
+  <h2 class="event-list-title">{{ '::Menu:Favorites' | abpLocalization }}</h2>
+  <div *ngIf="loading" class="no-events">Loading...</div>
+  <div *ngIf="!loading && favoriteEvents?.length === 0" class="no-events">No favorites found.</div>
+  <div class="event-list">
+    <div *ngFor="let event of favoriteEvents" class="event-card">
+      <img *ngIf="event.imageURL" [src]="event.imageURL" alt="{{ event.name }}" class="event-image" />
+      <div class="event-details">
+        <h3 class="event-name">{{ event.name }}</h3>
+        <div class="event-meta">
+          <span class="event-date" *ngIf="event.date">📅 {{ event.date | date:'mediumDate' }}</span>
+          <span class="event-location" *ngIf="event.location">📍 {{ event.location }}</span>
+        </div>
+        <div class="event-description">{{ event.description }}</div>
+        <div class="event-info">
+          <span class="event-price">💵 {{ event.price }}</span>
+          <span class="event-quota">🎟️ Quota: {{ event.quota }}</span>
+        </div>
+        <div class="event-age-restriction" *ngIf="event.ageRestriction">
+          <span class="age-restriction">🔞 Age Restricted</span>
+        </div>
+        <div class="event-actions mt-2">
+          <button *abpPermission="'ABPTicketProject.User.EventsPurchase'" class="btn btn-sm btn-outline-primary me-2" (click)="purchase(event.id)">
+            <i class="fa fa-edit"></i> {{ '::Menu:Purchase' | abpLocalization }}
+          </button>
+          <button class="btn btn-sm btn-outline-danger me-2" (click)="removeFavorite(event.id)">
+            <i class="fa fa-heart-broken"></i> {{ '::Menu:Unfavorite' | abpLocalization }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

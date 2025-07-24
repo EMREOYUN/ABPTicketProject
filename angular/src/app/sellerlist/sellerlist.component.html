@@ -28,10 +28,43 @@
           <button *abpPermission="'ABPTicketProject.Seller.EditEvent'" class="btn btn-sm btn-outline-primary me-2" (click)="editEvent(event.id)">
             <i class="fa fa-edit"></i> {{ '::Menu:Edit' | abpLocalization }}
           </button>
-          <button *abpPermission="'ABPTicketProject.Seller.DeleteEvent'" class="btn btn-sm btn-outline-danger" (click)="deleteEvent(event.id)">
+          <button *abpPermission="'ABPTicketProject.Seller.DeleteEvent'" class="btn btn-sm btn-outline-danger me-2" (click)="deleteEvent(event.id)">
             <i class="fa fa-trash"></i> {{ '::Menu:Delete' | abpLocalization }}
           </button>
+          <button class="btn btn-sm btn-outline-info" (click)="showTicketInfo(event.id)">
+            <i class="fa fa-ticket"></i> View Sales
+          </button>
         </div>
+<!-- Modal for ticket info -->
+<abp-modal [(visible)]="ticketInfoModalOpen">
+  <ng-template #abpHeader>
+    <h3>Ticket Sales Info</h3>
+  </ng-template>
+  <ng-template #abpBody>
+    <div *ngIf="selectedTicketInfo">
+      <div><strong>Event Name:</strong> {{ selectedTicketInfo.eventName }}</div>
+      <div><strong>Total Tickets Sold:</strong> {{ selectedTicketInfo.tickets?.length || 0 }}</div>
+      <table class="table table-bordered mt-3" *ngIf="selectedTicketInfo.tickets?.length">
+        <thead>
+          <tr>
+            <th>Ticket ID</th>
+            <th>Buyer Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of selectedTicketInfo.tickets">
+            <td>{{ ticket.ticketId }}</td>
+            <td>{{ ticket.buyerName }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!selectedTicketInfo.tickets?.length">No tickets sold yet.</div>
+    </div>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose (click)="ticketInfoModalOpen = false">Close</button>
+  </ng-template>
+</abp-modal>
       </div>
     </div>
   </div>
@@ -107,92 +140,3 @@
   </button>
   </ng-template>
 </abp-modal>
-
-<style>
-.event-list-container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-.event-list-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-}
-.no-events {
-  text-align: center;
-  color: #888;
-  font-size: 1.2rem;
-}
-.event-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-.event-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  overflow: hidden;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.2s;
-}
-.event-card:hover {
-  box-shadow: 0 4px 24px rgba(0,0,0,0.16);
-}
-.event-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  background: #f5f5f5;
-}
-.event-details {
-  padding: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.event-name {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 0.3rem 0;
-}
-.event-meta {
-  font-size: 0.95rem;
-  color: #666;
-  display: flex;
-  gap: 1.2rem;
-}
-.event-description {
-  margin: 0.5rem 0;
-  color: #444;
-  min-height: 48px;
-}
-.event-info {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.98rem;
-  color: #333;
-  flex-wrap: wrap;
-}
-.event-age-restriction {
-  color: #d32f2f;
-  font-weight: 500;
-  margin-top: 0.3rem;
-}
-.event-status {
-  margin-top: 0.5rem;
-  font-size: 0.98rem;
-  font-weight: 500;
-}
-.event-status.active span {
-  color: #388e3c;
-}
-.event-status.inactive span {
-  color: #d32f2f;
-}
-</style>

@@ -32,3 +32,16 @@ export interface PurchasedTicketDto extends EntityDto<string> {
   quantity: number;
   purchaseDate?: string;
 }
+
+export interface PurchaserInfoDto {
+  userId?: string;
+  fullName?: string;
+  ticketIds: string[];
+}
+
+export interface SellerEventPurchaseInfoDto {
+  eventId?: string;
+  eventName?: string;
+  uniquePurchaserCount: number;
+  purchasers: PurchaserInfoDto[];
+}

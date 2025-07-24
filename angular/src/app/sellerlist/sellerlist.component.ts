@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ConfigStateService, ListService, PagedResultDto } from '@abp/ng.core';
-import { EventService, EventDto } from '../proxy/events'; // Assuming you have an EventService for handling event-related logic
+import { EventService, EventDto } from '../proxy/events';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDateNativeAdapter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
@@ -15,19 +15,49 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 export class SellerlistComponent implements OnInit {
   events = { items: [], totalCount: 0 } as PagedResultDto<EventDto>;
   selectedEvent = {} as EventDto;
+  ticketInfoModalOpen = false;
+  selectedTicketInfo: any = null;
 
   config: ConfigStateService = inject(ConfigStateService);
 
   isModalOpen = false;
-  form: FormGroup; // add this line
+  form: FormGroup;
 
-  constructor(public readonly list: ListService, private eventService: EventService, private fb: FormBuilder, private confirmation: ConfirmationService) {}
+  constructor(
+    public readonly list: ListService,
+    private eventService: EventService,
+    private fb: FormBuilder,
+    private confirmation: ConfirmationService,
+  ) {}
 
   ngOnInit(): void {
     const eventStream = (query) => this.eventService.getSellerEvents(query);
 
     this.list.hookToQuery(eventStream).subscribe((result) => {
       this.events = result;
+    });
+  }
+
+  showTicketInfo(eventId: string): void {
+    this.eventService.getSellerEventPurchaseInfo().subscribe((infos) => {
+      const info = infos.find(i => i.eventId === eventId);
+      let tickets: any[] = [];
+      if (info && info.purchasers) {
+        info.purchasers.forEach(purchaser => {
+          (purchaser.ticketIds || []).forEach(ticketId => {
+            tickets.push({
+              ticketId,
+              buyerName: purchaser.fullName,
+              buyerFullName: purchaser.fullName
+            });
+          });
+        });
+      }
+      const ticketInfo = info
+        ? { ...info, tickets }
+        : { eventId, tickets: [] };
+      this.selectedTicketInfo = ticketInfo;
+      this.ticketInfoModalOpen = true;
     });
   }
 

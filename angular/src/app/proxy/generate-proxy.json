@@ -936,6 +936,73 @@
                   }
                 },
                 {
+                  "name": "AddFavoriteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "eventId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "RemoveFavoriteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "eventId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
+                },
+                {
+                  "name": "IsFavoriteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "eventId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Boolean",
+                    "typeSimple": "boolean"
+                  }
+                },
+                {
+                  "name": "GetMyFavoriteEventsAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<ABPTicketProject.Events.EventDto>",
+                    "typeSimple": "[ABPTicketProject.Events.EventDto]"
+                  }
+                },
+                {
+                  "name": "GetSellerEventPurchaseInfoAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<ABPTicketProject.Events.SellerEventPurchaseInfoDto>",
+                    "typeSimple": "[ABPTicketProject.Events.SellerEventPurchaseInfoDto]"
+                  }
+                },
+                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -1222,6 +1289,147 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<ABPTicketProject.Events.PurchasedTicketDto>",
                 "typeSimple": "[ABPTicketProject.Events.PurchasedTicketDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "ABPTicketProject.Events.IEventAppService"
+            },
+            "AddFavoriteAsyncByEventId": {
+              "uniqueName": "AddFavoriteAsyncByEventId",
+              "name": "AddFavoriteAsync",
+              "httpMethod": "POST",
+              "url": "api/app/event/favorite/{eventId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "eventId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "eventId",
+                  "name": "eventId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "ABPTicketProject.Events.IEventAppService"
+            },
+            "RemoveFavoriteAsyncByEventId": {
+              "uniqueName": "RemoveFavoriteAsyncByEventId",
+              "name": "RemoveFavoriteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/event/favorite/{eventId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "eventId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "eventId",
+                  "name": "eventId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "ABPTicketProject.Events.IEventAppService"
+            },
+            "IsFavoriteAsyncByEventId": {
+              "uniqueName": "IsFavoriteAsyncByEventId",
+              "name": "IsFavoriteAsync",
+              "httpMethod": "POST",
+              "url": "api/app/event/is-favorite/{eventId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "eventId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "eventId",
+                  "name": "eventId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Boolean",
+                "typeSimple": "boolean"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "ABPTicketProject.Events.IEventAppService"
+            },
+            "GetMyFavoriteEventsAsync": {
+              "uniqueName": "GetMyFavoriteEventsAsync",
+              "name": "GetMyFavoriteEventsAsync",
+              "httpMethod": "GET",
+              "url": "api/app/event/my-favorite-events",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<ABPTicketProject.Events.EventDto>",
+                "typeSimple": "[ABPTicketProject.Events.EventDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "ABPTicketProject.Events.IEventAppService"
+            },
+            "GetSellerEventPurchaseInfoAsync": {
+              "uniqueName": "GetSellerEventPurchaseInfoAsync",
+              "name": "GetSellerEventPurchaseInfoAsync",
+              "httpMethod": "GET",
+              "url": "api/app/event/seller-event-purchase-info",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<ABPTicketProject.Events.SellerEventPurchaseInfoDto>",
+                "typeSimple": "[ABPTicketProject.Events.SellerEventPurchaseInfoDto]"
               },
               "allowAnonymous": null,
               "implementFrom": "ABPTicketProject.Events.IEventAppService"
@@ -4347,6 +4555,108 @@
           "jsonName": null,
           "type": "System.DateTime",
           "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "ABPTicketProject.Events.PurchaserInfoDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "UserId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "FullName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TicketIds",
+          "jsonName": null,
+          "type": "[System.Guid]",
+          "typeSimple": "[string]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "ABPTicketProject.Events.SellerEventPurchaseInfoDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "EventId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EventName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UniquePurchaserCount",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Purchasers",
+          "jsonName": null,
+          "type": "[ABPTicketProject.Events.PurchaserInfoDto]",
+          "typeSimple": "[ABPTicketProject.Events.PurchaserInfoDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

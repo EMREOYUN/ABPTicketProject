@@ -15,11 +15,12 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 export class EventComponent implements OnInit {
   events = { items: [], totalCount: 0 } as PagedResultDto<EventDto>;
   selectedEvent = {} as EventDto;
+  favoriteMap: { [eventId: string]: boolean } = {};
 
   config: ConfigStateService = inject(ConfigStateService);
 
   isModalOpen = false;
-  form: FormGroup; // add this line
+  form: FormGroup;
 
   constructor(public readonly list: ListService, private eventService: EventService, private fb: FormBuilder, private confirmation: ConfirmationService) {}
 
@@ -28,6 +29,26 @@ export class EventComponent implements OnInit {
 
     this.list.hookToQuery(eventStream).subscribe((result) => {
       this.events = result;
+      this.updateFavoriteMap();
+    });
+  }
+
+  updateFavoriteMap(): void {
+    if (!this.events?.items?.length) {
+      this.favoriteMap = {};
+      return;
+    }
+    // Get all favorite statuses in parallel
+    const ids = this.events.items.map(e => e.id);
+    ids.forEach(id => {
+      this.eventService.isFavorite(id).subscribe({
+        next: (result) => {
+          this.favoriteMap[id] = result;
+        },
+        error: () => {
+          this.favoriteMap[id] = false;
+        }
+      });
     });
   }
 
@@ -89,6 +110,21 @@ export class EventComponent implements OnInit {
     });
   }
 
+  isFavoriteLocal(id: string): boolean {
+    return !!this.favoriteMap[id];
+  }
+
+  favorite(id: string) {
+    this.eventService.addFavorite(id).subscribe(() => {
+      this.favoriteMap[id] = true;
+    });
+  }
+
+  unfavorite(id: string) {
+    this.eventService.removeFavorite(id).subscribe(() => {
+      this.favoriteMap[id] = false;
+    });
+  }
 
   buildForm(event?: EventDto) {
     let dateValue = '';

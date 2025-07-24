@@ -1,4 +1,4 @@
-import type { CreateUpdateEventDto, EventDto, PurchasedTicketDto } from './models';
+import type { CreateUpdateEventDto, EventDto, PurchasedTicketDto, SellerEventPurchaseInfoDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -8,6 +8,14 @@ import { Injectable } from '@angular/core';
 })
 export class EventService {
   apiName = 'Default';
+  
+
+  addFavorite = (eventId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: `/api/app/event/favorite/${eventId}`,
+    },
+    { apiName: this.apiName,...config });
   
 
   create = (input: CreateUpdateEventDto, config?: Partial<Rest.Config>) =>
@@ -44,10 +52,26 @@ export class EventService {
     { apiName: this.apiName,...config });
   
 
+  getMyFavoriteEvents = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, EventDto[]>({
+      method: 'GET',
+      url: '/api/app/event/my-favorite-events',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getMyPurchasedTickets = (config?: Partial<Rest.Config>) =>
     this.restService.request<any, PurchasedTicketDto[]>({
       method: 'GET',
       url: '/api/app/event/my-purchased-tickets',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getSellerEventPurchaseInfo = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, SellerEventPurchaseInfoDto[]>({
+      method: 'GET',
+      url: '/api/app/event/seller-event-purchase-info',
     },
     { apiName: this.apiName,...config });
   
@@ -61,11 +85,27 @@ export class EventService {
     { apiName: this.apiName,...config });
   
 
+  isFavorite = (eventId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: `/api/app/event/is-favorite/${eventId}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
   purchaseTicket = (eventId: string, quantity: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'POST',
       url: `/api/app/event/purchase-ticket/${eventId}`,
       params: { quantity },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  removeFavorite = (eventId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'DELETE',
+      url: `/api/app/event/favorite/${eventId}`,
     },
     { apiName: this.apiName,...config });
   
