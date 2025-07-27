@@ -1,6 +1,6 @@
 <div class="event-list-container">
   <h2 class="event-list-title">{{ '::Menu:Events' | abpLocalization }}</h2>
-  <div *ngIf="events?.items?.length === 0" class="no-events">No events found.</div>
+  <div *ngIf="events?.items?.length === 0" class="no-events">{{ '::Menu:NoEvents' | abpLocalization }}</div>
   <div class="event-list">
     <div *ngFor="let event of events?.items" class="event-card">
       <img *ngIf="event.imageURL" [src]="event.imageURL" alt="{{ event.name }}" class="event-image" />
@@ -13,10 +13,10 @@
         <div class="event-description">{{ event.description }}</div>
         <div class="event-info">
           <span class="event-price">💵 {{ event.price }}</span>
-          <span class="event-quota">🎟️ Quota: {{ event.quota }}</span>
+          <span class="event-quota">🎟️ {{ '::Menu:Quota' | abpLocalization }}: {{ event.quota }}</span>
         </div>
         <div class="event-age-restriction" *ngIf="event.ageRestriction">
-          <span class="age-restriction">🔞 Age Restricted</span>
+          <span class="age-restriction">🔞 {{ '::Menu:AgeRestricted' | abpLocalization }}</span>
         </div>
         <div class="event-actions mt-2">
           <button *abpPermission="'ABPTicketProject.User.EventsPurchase'" class="btn btn-sm btn-outline-primary me-2" (click)="purchase(event.id)">

@@ -80,6 +80,22 @@ public static class ABPTicketProjectModuleExtensionConfigurator
                         options.Attributes.Add(new RequiredAttribute());
                     }
                 );
+                user.AddOrUpdateProperty<string>(
+                    "UserType",
+                    options =>
+                    {
+                        options.Attributes.Add(new RequiredAttribute());
+                        options.Attributes.Add(new StringLengthAttribute(10));
+                    }
+                );
+                user.AddOrUpdateProperty<string>(
+                    "FullName",
+                    options =>
+                    {
+                        options.Attributes.Add(new RequiredAttribute());
+                        options.Attributes.Add(new StringLengthAttribute(100));
+                    }
+                );
             });
         });
     }

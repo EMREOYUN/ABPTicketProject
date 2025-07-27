@@ -1,7 +1,7 @@
 <div class="event-list-container">
   <h2 class="event-list-title">{{ '::Menu:Favorites' | abpLocalization }}</h2>
-  <div *ngIf="loading" class="no-events">Loading...</div>
-  <div *ngIf="!loading && favoriteEvents?.length === 0" class="no-events">No favorites found.</div>
+  <div *ngIf="loading" class="no-events">{{ '::Menu:Loading' | abpLocalization }}</div>
+  <div *ngIf="!loading && favoriteEvents?.length === 0" class="no-events">{{ '::Menu:NoFavorites' | abpLocalization }}</div>
   <div class="event-list">
     <div *ngFor="let event of favoriteEvents" class="event-card">
       <img *ngIf="event.imageURL" [src]="event.imageURL" alt="{{ event.name }}" class="event-image" />
@@ -14,10 +14,10 @@
         <div class="event-description">{{ event.description }}</div>
         <div class="event-info">
           <span class="event-price">💵 {{ event.price }}</span>
-          <span class="event-quota">🎟️ Quota: {{ event.quota }}</span>
+          <span class="event-quota">🎟️ {{ '::Menu:Quota' | abpLocalization }}: {{ event.quota }}</span>
         </div>
         <div class="event-age-restriction" *ngIf="event.ageRestriction">
-          <span class="age-restriction">🔞 Age Restricted</span>
+          <span class="age-restriction">🔞 {{ '::Menu:AgeRestricted' | abpLocalization }}</span>
         </div>
         <div class="event-actions mt-2">
           <button *abpPermission="'ABPTicketProject.User.EventsPurchase'" class="btn btn-sm btn-outline-primary me-2" (click)="purchase(event.id)">

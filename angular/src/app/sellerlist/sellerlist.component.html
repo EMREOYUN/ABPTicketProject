@@ -6,7 +6,7 @@
       <span>{{ "::Menu:NewEvent" | abpLocalization }}</span>
     </button>
   </div>
-  <div *ngIf="events?.items?.length === 0" class="no-events">No events found.</div>
+  <div *ngIf="events?.items?.length === 0" class="no-events">{{ '::Menu:NoEvents' | abpLocalization }}</div>
   <div class="event-list">
     <div *ngFor="let event of events?.items" class="event-card">
       <img *ngIf="event.imageURL" [src]="event.imageURL" alt="{{ event.name }}" class="event-image" />
@@ -19,10 +19,10 @@
         <div class="event-description">{{ event.description }}</div>
         <div class="event-info">
           <span class="event-price">💵 {{ event.price }}</span>
-          <span class="event-quota">🎟️ Quota: {{ event.quota }}</span>
+          <span class="event-quota">🎟️ {{ '::Menu:Quota' | abpLocalization }}: {{ event.quota }}</span>
         </div>
         <div class="event-age-restriction" *ngIf="event.ageRestriction">
-          <span class="age-restriction">🔞 Age Restricted</span>
+          <span class="age-restriction">🔞 {{ '::Menu:AgeRestricted' | abpLocalization }}</span>
         </div>
         <div class="event-actions mt-2">
           <button *abpPermission="'ABPTicketProject.Seller.EditEvent'" class="btn btn-sm btn-outline-primary me-2" (click)="editEvent(event.id)">
@@ -32,23 +32,23 @@
             <i class="fa fa-trash"></i> {{ '::Menu:Delete' | abpLocalization }}
           </button>
           <button class="btn btn-sm btn-outline-info" (click)="showTicketInfo(event.id)">
-            <i class="fa fa-ticket"></i> View Sales
+            <i class="fa fa-ticket"></i> {{ '::Menu:ViewSales' | abpLocalization }}
           </button>
         </div>
 <!-- Modal for ticket info -->
 <abp-modal [(visible)]="ticketInfoModalOpen">
   <ng-template #abpHeader>
-    <h3>Ticket Sales Info</h3>
+    <h3>{{ '::Menu:TicketSalesInfo' | abpLocalization }}</h3>
   </ng-template>
   <ng-template #abpBody>
     <div *ngIf="selectedTicketInfo">
-      <div><strong>Event Name:</strong> {{ selectedTicketInfo.eventName }}</div>
-      <div><strong>Total Tickets Sold:</strong> {{ selectedTicketInfo.tickets?.length || 0 }}</div>
+      <div><strong>{{ '::Menu:EventName' | abpLocalization }}:</strong> {{ selectedTicketInfo.eventName }}</div>
+      <div><strong>{{ '::Menu:TotalTicketsSold' | abpLocalization }}:</strong> {{ selectedTicketInfo.tickets?.length || 0 }}</div>
       <table class="table table-bordered mt-3" *ngIf="selectedTicketInfo.tickets?.length">
         <thead>
           <tr>
-            <th>Ticket ID</th>
-            <th>Buyer Name</th>
+            <th>{{ '::Menu:TicketID' | abpLocalization }}</th>
+            <th>{{ '::Menu:BuyerName' | abpLocalization }}</th>
           </tr>
         </thead>
         <tbody>
@@ -58,11 +58,11 @@
           </tr>
         </tbody>
       </table>
-      <div *ngIf="!selectedTicketInfo.tickets?.length">No tickets sold yet.</div>
+      <div *ngIf="!selectedTicketInfo.tickets?.length">{{ '::Menu:NoTicketsSold' | abpLocalization }}</div>
     </div>
   </ng-template>
   <ng-template #abpFooter>
-    <button type="button" class="btn btn-secondary" abpClose (click)="ticketInfoModalOpen = false">Close</button>
+    <button type="button" class="btn btn-secondary" abpClose (click)="ticketInfoModalOpen = false">{{ '::Menu:Close' | abpLocalization }}</button>
   </ng-template>
 </abp-modal>
       </div>
@@ -78,52 +78,52 @@
   <ng-template #abpBody>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
       <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input class="form-control" formControlName="name" placeholder="Event name" />
-        <div *ngIf="form.get('name').invalid && form.get('name').touched" class="text-danger small">Name is required.</div>
+        <label class="form-label">{{ '::Menu:EventName' | abpLocalization }}</label>
+        <input class="form-control" formControlName="name" placeholder="{{ '::Menu:EventNamePlaceholder' | abpLocalization }}" />
+        <div *ngIf="form.get('name').invalid && form.get('name').touched" class="text-danger small">{{ '::Menu:EventNameRequired' | abpLocalization }}</div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea class="form-control" formControlName="description" rows="2" placeholder="Description"></textarea>
-        <div *ngIf="form.get('description').invalid && form.get('description').touched" class="text-danger small">Description is required.</div>
+        <label class="form-label">{{ '::Menu:EventDescription' | abpLocalization }}</label>
+        <textarea class="form-control" formControlName="description" rows="2" placeholder="{{ '::Menu:EventDescriptionPlaceholder' | abpLocalization }}"></textarea>
+        <div *ngIf="form.get('description').invalid && form.get('description').touched" class="text-danger small">{{ '::Menu:EventDescriptionRequired' | abpLocalization }}</div>
       </div>
       <div class="row">
         <div class="col mb-3">
-          <label class="form-label">Price</label>
+          <label class="form-label">{{ '::Menu:EventPrice' | abpLocalization }}</label>
           <input type="number" class="form-control" formControlName="price" min="0.01" step="0.01" />
-          <div *ngIf="form.get('price').invalid && form.get('price').touched" class="text-danger small">Price must be at least 0.01.</div>
+          <div *ngIf="form.get('price').invalid && form.get('price').touched" class="text-danger small">{{ '::Menu:EventPriceInvalid' | abpLocalization }}</div>
         </div>
         <div class="col mb-3">
-          <label class="form-label">Quota</label>
+          <label class="form-label">{{ '::Menu:EventQuota' | abpLocalization }}</label>
           <input type="number" class="form-control" formControlName="quota" min="1" />
-          <div *ngIf="form.get('quota').invalid && form.get('quota').touched" class="text-danger small">Quota must be at least 1.</div>
+          <div *ngIf="form.get('quota').invalid && form.get('quota').touched" class="text-danger small">{{ '::Menu:EventQuotaInvalid' | abpLocalization }}</div>
         </div>
       </div>
       <div class="row">
         <div class="col mb-3">
-          <label class="form-label">User Quota</label>
+          <label class="form-label">{{ '::Menu:UserQuota' | abpLocalization }}</label>
           <input type="number" class="form-control" formControlName="userQuota" min="1" />
-          <div *ngIf="form.get('userQuota').invalid && form.get('userQuota').touched" class="text-danger small">User quota must be at least 1.</div>
+          <div *ngIf="form.get('userQuota').invalid && form.get('userQuota').touched" class="text-danger small">{{ '::Menu:UserQuotaInvalid' | abpLocalization }}</div>
         </div>
         <div class="col mb-3">
-          <label class="form-label">Date</label>
+          <label class="form-label">{{ '::Menu:EventDate' | abpLocalization }}</label>
           <input type="date" class="form-control" formControlName="date" />
-          <div *ngIf="form.get('date').invalid && form.get('date').touched" class="text-danger small">Date is required.</div>
+          <div *ngIf="form.get('date').invalid && form.get('date').touched" class="text-danger small">{{ '::Menu:EventDateRequired' | abpLocalization }}</div>
         </div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Location</label>
-        <input class="form-control" formControlName="location" placeholder="Location" />
-        <div *ngIf="form.get('location').invalid && form.get('location').touched" class="text-danger small">Location is required.</div>
+        <label class="form-label">{{ '::Menu:Location' | abpLocalization }}</label>
+        <input class="form-control" formControlName="location" placeholder="{{ '::Menu:LocationPlaceholder' | abpLocalization }}" />
+        <div *ngIf="form.get('location').invalid && form.get('location').touched" class="text-danger small">{{ '::Menu:LocationRequired' | abpLocalization }}</div>
       </div>
       <div class="mb-3">
-        <label class="form-label">Image URL</label>
-        <input class="form-control" formControlName="imageURL" placeholder="https://..." />
-        <div *ngIf="form.get('imageURL').invalid && form.get('imageURL').touched" class="text-danger small">Must be a valid URL.</div>
+        <label class="form-label">{{ '::Menu:ImageURL' | abpLocalization }}</label>
+        <input class="form-control" formControlName="imageURL" placeholder="{{ '::Menu:ImageURLPlaceholder' | abpLocalization }}" />
+        <div *ngIf="form.get('imageURL').invalid && form.get('imageURL').touched" class="text-danger small">{{ '::Menu:ImageURLInvalid' | abpLocalization }}</div>
       </div>
       <div class="form-check mb-3">
         <input class="form-check-input" type="checkbox" formControlName="ageRestriction" id="ageRestrictionCheck" />
-        <label class="form-check-label" for="ageRestrictionCheck">Age Restriction</label>
+        <label class="form-check-label" for="ageRestrictionCheck">{{ '::Menu:AgeRestriction' | abpLocalization }}</label>
       </div>
       <!-- Add submit button if needed -->
       <!-- <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Create Event</button> -->
